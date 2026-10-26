@@ -534,10 +534,14 @@ details.game[open] { border-color: var(--accent); }
 .cabins dd span { font-size: .84rem; color: var(--ink-2); }
 .cabins dd small { font-size: .78rem; color: var(--ink-3); }
 .ourcab { font-weight: 650; color: var(--accent); font-size: .9rem; margin: 0; }
-.cabins .cabrow { display: grid; grid-template-columns: minmax(0, 1fr) 6.5em 4.5em; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 0; }
+.cabins .cabrow { display: grid; grid-template-columns: minmax(0, 1fr) 4.4em 5.4em; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 0; }
 .cabins input { font: inherit; font-size: .95rem; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); min-width: 0; }
-.cabins .cabnum { font-family: var(--f-data); text-align: center; }
-.cabdeck { font-family: var(--f-data); font-size: .78rem; color: var(--accent); }
+.cabins .cabnum { font-family: var(--f-data); text-align: center; padding: 8px 4px; }
+.cabdeck { font-family: var(--f-data); font-size: .78rem; color: var(--accent); display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.cabdot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; flex: none; }
+i.cab0 { background: var(--c-sd); } i.cab1 { background: var(--c-mz); } i.cab2 { background: var(--c-pv); }
+.deck-svg .cabdot { stroke: var(--card); stroke-width: 1.6; pointer-events: none; }
+.deck-svg .cab0 { fill: var(--c-sd); } .deck-svg .cab1 { fill: var(--c-mz); } .deck-svg .cab2 { fill: var(--c-pv); }
 
 /* ---------- phone widths (the main way this guide is read) ---------- */
 .chartnote { margin: 8px 0 0; font-family: var(--f-data); font-size: .66rem; line-height: 1.4; color: var(--ink-3); }

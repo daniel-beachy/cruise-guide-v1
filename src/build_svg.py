@@ -264,6 +264,7 @@ def deck_svg(decks):
     for x, lab in ((70, "AFT"), (205, "MID"), (330, "FWD")):
         o.append(f'<text class="ax" x="{x}" y="{H - 4}" text-anchor="middle">{lab}</text>')
     o.append(f'<text class="ax" x="392" y="{H - 4}" text-anchor="end">BOW →</text>')
+    o.append(f'<g id="cabDots" data-base="{BASE}" data-h="{DECK_H}"></g>')
     o.append("</svg>")
     return "".join(o)
 

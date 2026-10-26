@@ -323,6 +323,24 @@
         p.hidden = !list.length;
         p.textContent = list.map(function (x) { return "Cabin " + x[1] + ": " + x[0]; }).join(" · ");
       });
+      var g = $("#cabDots");
+      if (g) {
+        var base = +g.dataset.base, dh = +g.dataset.h;
+        g.innerHTML = "";
+        data.forEach(function (x, i) {
+          var d = deckOf(x[1]);
+          if (!d) return;
+          var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          c.setAttribute("class", "cabdot cab" + i);
+          c.setAttribute("cx", 190 + 15 * i);
+          c.setAttribute("cy", base - dh * d + dh / 2);
+          c.setAttribute("r", 5.5);
+          var t = document.createElementNS("http://www.w3.org/2000/svg", "title");
+          t.textContent = (x[0] || "Cabin") + " · " + x[1];
+          c.appendChild(t);
+          g.appendChild(c);
+        });
+      }
     }
     nums.forEach(function (inp, i) {
       var w = $("#cabWho" + i);

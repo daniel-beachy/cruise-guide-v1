@@ -91,7 +91,7 @@ PACKING = [
     ("Documents", ["Passport", "Driver's license or other photo ID", "Holland America boarding pass and luggage tags", "Flight or travel bookings", "Offline copies of everything"]),
     ("Money", ["Credit card with no foreign transaction fees", "Small-bill pesos from a bank ATM"]),
     ("Snorkel kit", ["Mask, snorkel and anti-fog", "Sunscreen", "Water shoes", "Dry bag and waterproof phone pouch"]),
-    ("Clothes", ["Multiple swimsuits", "Sun hat and polarized sunglasses", "Something dressy for the dining room and New Year's Eve", "Trail or walking shoes for El Faro and the jungle trails", "Light rain shell"]),
+    ("Clothes", ["Swimsuits, clothes for seven days", "Sun hat and sunglasses", "Something dressy for the dining room and New Year's Eve", "Sandals, comfortable walking shoes", "Light jacket or rain coat"]),
     ("Gear & tech", ["Binoculars", "Power bank", "Charging cables", "Headphones"]),
     ("Health", ["Small first-aid kit and medications", "After-sun / aloe"]),
     ("Games & fun", ["A couple of compact card or party games", "Football or volleyball and a small pump"]),

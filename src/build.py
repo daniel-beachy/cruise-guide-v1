@@ -307,9 +307,9 @@ def cabins_card():
     for i, c in enumerate(CABINS):
         rows += (f'<div class="cabrow"><input id="cabWho{i}" class="cabwho" type="text" value="{h(c["who"])}" maxlength="24" aria-label="Who">'
                  f'<input id="cabNum{i}" class="cabnum" type="text" inputmode="numeric" placeholder="Cabin #" maxlength="5" aria-label="Cabin number for {h(c["who"])}">'
-                 f'<span class="cabdeck" id="cabDeck{i}"></span></div>')
+                 f'<span class="cabdeck"><i class="cabdot cab{i}"></i><span id="cabDeck{i}"></span></span></div>')
     return (f'<div class="card"><div class="cabins">{rows}</div><p class="note">Type each cabin number once; it\'s saved on this phone, even after you close the app. '
-            f'Cabin numbers start with the deck number (6123 is on deck 6), and each cabin is marked on its deck below.</p></div>')
+            f'Cabin numbers start with the deck number (6123 is on deck 6), and each cabin gets its colored dot on the deck profile below. The dots show the deck only, not where on the deck the cabin is.</p></div>')
 
 
 def view_ship():
