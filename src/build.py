@@ -330,7 +330,7 @@ def view_ship():
         dname = f'<span>{h(d["name"])}</span>' if d["name"] else ""
         decklist += f'<details class="deck" id="deck{d["n"]}" data-deck="{d["n"]}"><summary><b>{name}</b><span class="dk">{dname}<em>{h(summary_v)}</em></span></summary><div class="body">{sections}{tip}</div></details>'
     decklist += "</div>"
-    deck = f'''<figure class="card"><div class="svgbox">{S.deck_svg(DECKS)}</div><figcaption>Not to scale. Venue positions (fore, mid, aft) follow Holland America's deck pages. Also aboard: {h(", ".join(ELSEWHERE))}; check the deck plan in the Navigator app for exact spots.</figcaption></figure>{decklist}'''
+    deck = f'''<figure class="card"><div class="svgbox">{S.deck_svg(DECKS)}</div><figcaption>Outline traced from Holland America's deck plan, with heights stretched so each deck is easy to tap. Venue positions (fore, mid, aft) follow Holland America's deck pages. Also aboard: {h(", ".join(ELSEWHERE))}; check the deck plan in the Navigator app for exact spots.</figcaption></figure>{decklist}'''
 
     power = f'''<div class="card" style="display:grid;gap:12px"><div class="svgbox">{S.power_svg()}</div>
 <div class="jsonly"><div class="speedbig"><b id="spdOut">18.0</b><span>knots</span></div><div class="slider"><label class="eyebrow" for="spd">Ship speed</label><input type="range" id="spd" min="0" max="22.2" step="0.1" value="18"><div class="ticks-row"><span>In port</span><span>11</span><span>18 service</span><span>22.2 max</span></div></div>

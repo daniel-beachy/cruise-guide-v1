@@ -1,5 +1,8 @@
 # SVG generators for the guide. All colors come from CSS classes / tokens.
+import json
 import math
+import os
+import re
 from html import escape as esc
 
 
@@ -206,65 +209,43 @@ def mz_svg():
 
 
 # ---------------------------------------------------------------- deck profile
-DECK_H = 15
-BASE = 214
-
-
-def deck_y(n):
-    return BASE - DECK_H * n
+# Outline and deck bands traced from Holland America's deck plan (scripts/profile.py).
+PROFILE = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "ship-profile.json")))
 
 
 def deck_svg(decks):
-    W, H = 400, 262
-    o = [f'<svg class="deck-svg" id="deckSvg" viewBox="0 0 {W} {H}" role="img" aria-label="Side profile of Koningsdam, bow to the right, with decks 1 to 12 stacked. Tap a deck to see what is on it.">']
-    # water
-    o.append(f'<rect class="waterline" x="0" y="{BASE + 8}" width="{W}" height="{H - BASE - 8}"/>')
-    # superstructure decks 4-10 (white), front steps back as it rises
-    def sx(n):  # forward x of deck n superstructure
-        return {4: 352, 5: 350, 6: 348, 7: 346, 8: 344, 9: 338, 10: 330, 11: 322, 12: 318}[n]
-    def ax(n):  # aft x
-        return {4: 30, 5: 30, 6: 31, 7: 32, 8: 34, 9: 40, 10: 48, 11: 62, 12: 150}[n]
-    pts = []
-    for n in range(4, 13):
-        pts.append((ax(n), deck_y(n)))
-    pts_aft = [(ax(n), deck_y(n - 1) if n > 4 else deck_y(3)) for n in range(4, 13)]
-    poly = [(ax(4), deck_y(3))]
-    for n in range(4, 13):
-        poly += [(ax(n), deck_y(n - 1)), (ax(n), deck_y(n))]
-    for n in range(12, 3, -1):
-        poly += [(sx(n), deck_y(n)), (sx(n), deck_y(n - 1))]
-    o.append('<path class="super" d="M' + " L".join(f"{x},{y}" for x, y in poly) + ' Z"/>')
-    # windows rows
-    for n in range(4, 11):
-        y = deck_y(n) + 5
-        o.append(f'<rect class="win" x="{ax(n) + 6}" y="{y}" width="{sx(n) - ax(n) - 14}" height="5" rx="1.5"/>')
-    # glass: magrodome over Lido pool (deck 9-10 mid), Crow's Nest windows deck 12 fwd
-    o.append(f'<path class="glass" d="M170,{deck_y(10)} Q200,{deck_y(10) - 16} 236,{deck_y(10)} Z"/>')
-    o.append(f'<rect class="glass" x="256" y="{deck_y(12) + 4}" width="58" height="7" rx="2"/>')
-    # funnel aft
-    o.append(f'<path class="funnel" d="M92,{deck_y(11)} L100,{deck_y(12) - 14} L128,{deck_y(12) - 14} L132,{deck_y(11)} Z"/>')
-    # hull decks 1-3 and below the water
-    hull = f"M22,{deck_y(3)} L384,{deck_y(3)} L378,{BASE - 6} L362,{BASE + 20} L60,{BASE + 20} L34,{BASE + 8} L22,{BASE - 12} Z"
-    o.append(f'<path class="hull" d="{hull}"/>')
-    o.append(f'<line class="wl" x1="0" y1="{BASE + 8}" x2="{W}" y2="{BASE + 8}"/>')
-    # lifeboats along deck 3/4 sides
-    for x in range(118, 300, 26):
-        o.append(f'<rect x="{x}" y="{deck_y(4) + 3}" width="20" height="9" rx="4" fill="var(--warn)"/>')
-    # portholes on hull
-    for n in (1, 2, 3):
-        y = deck_y(n) + 7
-        o.append(f'<line x1="44" y1="{y}" x2="364" y2="{y}" stroke="var(--paper)" stroke-opacity=".25" stroke-width="1.6" stroke-dasharray="1.5 3.5"/>')
-    # deck bands & labels
+    P = PROFILE
+    W, X0 = 400, 26
+    k = (W - X0 - 6) / P["w"]
+    top, bot = P["decks"]["12"]["y0"], P["decks"]["1"]["y1"]
+    # Decks are about 3 px tall at true scale, too thin to tap, so the deck zone is
+    # stretched more than the funnel above it and the hull below it.
+    s_out, s_deck = 1.5 * k, 13.0 * 12 / (bot - top)
+    Y0 = 6
+    def Y(y):
+        if y <= top:
+            return Y0 + y * s_out
+        if y <= bot:
+            return Y0 + top * s_out + (y - top) * s_deck
+        return Y0 + top * s_out + (bot - top) * s_deck + (y - bot) * s_out
+    def path(d):
+        return re.sub(r"(-?[\d.]+),(-?[\d.]+)", lambda m: f"{X0 + float(m[1]) * k:.1f},{Y(float(m[2])):.1f}", d)
+    H = Y(P["h"]) + 18
+    o = [f'<svg class="deck-svg" id="deckSvg" viewBox="0 0 {W} {H:.0f}" role="img" aria-label="Side profile of Koningsdam, bow to the right, with decks 1 to 12 stacked. Tap a deck to see what is on it.">']
+    o.append(f'<path class="sil" d="{path(P["outline"])}"/>')
+    cy = {}
     for d in decks:
         n = d["n"]
-        y = deck_y(n)
-        o.append(f'<rect class="band" data-deck="{n}" x="18" y="{y}" width="370" height="{DECK_H}"><title>Deck {n}</title></rect>')
-        o.append(f'<text class="dl" x="14" y="{y + 11}" text-anchor="end">{n}</text>')
-    # section axis
-    for x, lab in ((70, "AFT"), (205, "MID"), (330, "FWD")):
-        o.append(f'<text class="ax" x="{x}" y="{H - 4}" text-anchor="middle">{lab}</text>')
-    o.append(f'<text class="ax" x="392" y="{H - 4}" text-anchor="end">BOW →</text>')
-    o.append(f'<g id="cabDots" data-base="{BASE}" data-h="{DECK_H}"></g>')
+        b = P["decks"][str(n)]
+        y0, y1 = Y(b["y0"]), Y(b["y1"])
+        cy[n] = round((y0 + y1) / 2, 1)
+        o.append(f'<path class="dk" data-deck="{n}" d="{path(b["d"])}"/>')
+        o.append(f'<rect class="band" data-deck="{n}" x="{X0 - 4}" y="{y0:.1f}" width="{W - X0}" height="{y1 - y0:.1f}"><title>Deck {n}</title></rect>')
+        o.append(f'<text class="dl" x="19" y="{cy[n] + 3.5:.1f}" text-anchor="end">{n}</text>')
+    for x, lab in ((0.12, "AFT"), (0.5, "MID"), (0.82, "FWD")):
+        o.append(f'<text class="ax" x="{X0 + x * P["w"] * k:.0f}" y="{H - 4:.0f}" text-anchor="middle">{lab}</text>')
+    o.append(f'<text class="ax" x="{W - 4}" y="{H - 4:.0f}" text-anchor="end">BOW →</text>')
+    o.append(f"<g id=\"cabDots\" data-cy='{json.dumps(cy)}'></g>")
     o.append("</svg>")
     return "".join(o)
 

@@ -195,7 +195,7 @@
     var bands = $$("#deckSvg .band");
     if (!bands.length) return;
     function select(n, scroll) {
-      bands.forEach(function (b) { b.classList.toggle("on", b.dataset.deck === String(n)); });
+      $$("#deckSvg [data-deck]").forEach(function (b) { b.classList.toggle("on", b.dataset.deck === String(n)); });
       $$("details.deck").forEach(function (d) { var on = d.dataset.deck === String(n); d.classList.toggle("on", on); if (on) d.open = true; });
       if (scroll) { var d = document.getElementById("deck" + n); if (d) d.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" }); }
     }
@@ -325,7 +325,7 @@
       });
       var g = $("#cabDots");
       if (g) {
-        var base = +g.dataset.base, dh = +g.dataset.h;
+        var cy = JSON.parse(g.dataset.cy);
         g.innerHTML = "";
         data.forEach(function (x, i) {
           var d = deckOf(x[1]);
@@ -333,8 +333,8 @@
           var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           c.setAttribute("class", "cabdot cab" + i);
           c.setAttribute("cx", 190 + 15 * i);
-          c.setAttribute("cy", base - dh * d + dh / 2);
-          c.setAttribute("r", 5.5);
+          c.setAttribute("cy", cy[d]);
+          c.setAttribute("r", 5);
           var t = document.createElementNS("http://www.w3.org/2000/svg", "title");
           t.textContent = (x[0] || "Cabin") + " · " + x[1];
           c.appendChild(t);
@@ -344,8 +344,7 @@
     }
     nums.forEach(function (inp, i) {
       var w = $("#cabWho" + i);
-      var OLD = { "Daniel & Taylor": 1, "Parents": 1 };  // earlier defaults, replaced by the new ones
-      if (saved[i]) { if (saved[i][0] && !OLD[saved[i][0]]) w.value = saved[i][0]; inp.value = saved[i][1] || ""; }
+      if (saved[i]) { if (saved[i][0]) w.value = saved[i][0]; inp.value = saved[i][1] || ""; }
       inp.addEventListener("input", render); w.addEventListener("input", render);
     });
     render();
