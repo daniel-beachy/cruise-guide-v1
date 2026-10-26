@@ -75,5 +75,7 @@ Re-verify and update, then rebuild, test and push:
 - Holland America notices for the Dec 26 sailing; Wi-Fi isn't used by the group, so skip it.
 - San Diego Zoo hours, prices, parking and panda status (`ZOO` in `content_ports.py`).
 - Weather: replace climate averages in `WEATHER` with the forecast where useful, and note it.
-- Football: an Activities section is planned once Daniel sends Navigator app screenshots
-  (art/origami classes, sports viewing, CFP games, Seahawks or Broncos games in ship time).
+- Football and activities: add an Activities section with every CFP game and any Broncos or
+  Seahawks game in ship time, plus prioritized Navigator app activities from screenshots Daniel
+  drops in `navigator/` (gitignored, never committed). A local Claude Code scheduled task,
+  `cruise-guide-pre-cruise-update`, runs this whole list at 8 am on Dec 23.
