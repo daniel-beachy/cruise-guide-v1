@@ -5,10 +5,9 @@ Holiday", **Dec 26, 2026 – Jan 2, 2027**, San Diego round trip (Puerto Vallart
 Dec 30, Cabo San Lucas Dec 31). It's for a group of six: Daniel & Taylor, Taylor's parents, and
 Tyson & Malea.
 
-Live (unlisted) at **https://daniel-beachy.github.io/cruise-guide-v1/** via GitHub Pages from
-`main` / `docs/`. It is deliberately **not** linked from the portfolio and has **no "More projects"
-link**. The repo is private; the Pages site is still reachable by anyone with the link, and the
-group is fine with cabin numbers being in it.
+Live at **https://daniel-beachy.github.io/cruise-guide-v1/** via GitHub Pages from
+`main` / `docs/`. It has **no "More projects" link** (Daniel's call). The repo and site are public, so nothing
+personal goes in the source: cabin numbers are typed in on each phone and saved in localStorage.
 
 ## How it's built
 
@@ -16,7 +15,7 @@ group is fine with cabin numbers being in it.
 
 | What | Where |
 | --- | --- |
-| Trip days, weather, ship specs and facts, deck plan, Holland America facts, **cabins**, site URL | `src/content_trip.py` |
+| Trip days, weather, ship specs and facts, deck plan, Holland America facts, cabin-card labels, site URL | `src/content_trip.py` |
 | Ports (overview, stats, facts, history, getting around, snorkeling, food, phrases, safety), Zoo, Mexico briefing incl. advisory | `src/content_ports.py` |
 | Port-day "vibes" (loose plans), San Diego embark/disembark, night-sky targets and tips | `src/content_vibes.py` |
 | Wildlife, base trivia, packing list, downloads, small games | `src/content_play.py` |
@@ -76,6 +75,5 @@ Re-verify and update, then rebuild, test and push:
 - Holland America notices for the Dec 26 sailing; Wi-Fi isn't used by the group, so skip it.
 - San Diego Zoo hours, prices, parking and panda status (`ZOO` in `content_ports.py`).
 - Weather: replace climate averages in `WEATHER` with the forecast where useful, and note it.
-- Cabin numbers in `CABINS` if Daniel has sent them.
 - Football: an Activities section is planned once Daniel sends Navigator app screenshots
   (art/origami classes, sports viewing, CFP games, Seahawks or Broncos games in ship time).

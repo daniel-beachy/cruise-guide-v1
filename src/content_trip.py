@@ -185,9 +185,5 @@ WIFI = [
 
 SITE_URL = "daniel-beachy.github.io/cruise-guide-v1"
 
-# Group cabins. Put the number in "cabin" (e.g. 6123) once Holland America assigns it; the deck is derived from it.
-CABINS = [
-    {"who": "Daniel & Taylor", "cabin": None, "tbd": "Not assigned yet", "type": "Inside", "note": "Guarantee booking. Holland America assigns the cabin closer to sailing."},
-    {"who": "Parents", "cabin": None, "type": "", "note": ""},
-    {"who": "Tyson & Malea", "cabin": None, "type": "", "note": ""},
-]
+# Default labels for the cabin card. Numbers are typed in on each phone and saved locally.
+CABINS = [{"who": "Daniel & Taylor"}, {"who": "Parents"}, {"who": "Tyson & Malea"}]

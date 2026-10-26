@@ -531,3 +531,7 @@ details.game[open] { border-color: var(--accent); }
 .cabins dd span { font-size: .84rem; color: var(--ink-2); }
 .cabins dd small { font-size: .78rem; color: var(--ink-3); }
 .ourcab { font-weight: 650; color: var(--accent); font-size: .9rem; margin: 0; }
+.cabins .cabrow { display: grid; grid-template-columns: minmax(0, 1fr) 6.5em 4.5em; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 0; }
+.cabins input { font: inherit; font-size: .95rem; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); min-width: 0; }
+.cabins .cabnum { font-family: var(--f-data); text-align: center; }
+.cabdeck { font-family: var(--f-data); font-size: .78rem; color: var(--accent); }

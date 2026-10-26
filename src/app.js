@@ -303,6 +303,34 @@
   portClock();
   setInterval(portClock, 30000);
 
+  /* ---------------- cabins ---------------- */
+  (function () {
+    var nums = $$(".cabnum");
+    if (!nums.length) return;
+    var saved = store.get("cabins", []);
+    function deckOf(v) { var n = parseInt(v, 10); return n >= 1000 && n < 13000 ? Math.floor(n / 1000) : null; }
+    function render() {
+      var data = [];
+      nums.forEach(function (inp, i) {
+        var who = $("#cabWho" + i).value.trim(), num = inp.value.trim(), d = deckOf(num);
+        $("#cabDeck" + i).textContent = d ? "Deck " + d : "";
+        data.push([who, num]);
+      });
+      store.set("cabins", data);
+      $$("[data-deckcab]").forEach(function (p) {
+        var list = data.filter(function (x) { return deckOf(x[1]) === Number(p.dataset.deckcab); });
+        p.hidden = !list.length;
+        p.textContent = list.map(function (x) { return "Cabin " + x[1] + ": " + x[0]; }).join(" · ");
+      });
+    }
+    nums.forEach(function (inp, i) {
+      var w = $("#cabWho" + i);
+      if (saved[i]) { if (saved[i][0]) w.value = saved[i][0]; inp.value = saved[i][1] || ""; }
+      inp.addEventListener("input", render); w.addEventListener("input", render);
+    });
+    render();
+  })();
+
   /* ---------------- trivia ---------------- */
   (function () {
     var box = $("#quiz");

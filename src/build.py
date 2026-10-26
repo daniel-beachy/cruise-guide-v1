@@ -304,14 +304,12 @@ def cabin_deck(num):
 
 def cabins_card():
     rows = ""
-    for c in CABINS:
-        num = c.get("cabin")
-        deck = cabin_deck(num)
-        main = f'<b class="data">{h(str(num))}</b>' if num else f'<b class="tbd">{h(c.get("tbd", "Not added yet"))}</b>'
-        meta = " · ".join(x for x in (c.get("type", ""), f"Deck {deck}" if deck else "", c.get("position", "")) if x)
-        note = f'<small>{h(c["note"])}</small>' if c.get("note") else ""
-        rows += f'<div><dt>{h(c["who"])}</dt><dd>{main}<span>{h(meta)}</span>{note}</dd></div>'
-    return f'<div class="card"><dl class="cabins">{rows}</dl><p class="note">Cabin numbers start with the deck number (6123 is on deck 6). Tap that deck below to see what\'s nearby.</p></div>'
+    for i, c in enumerate(CABINS):
+        rows += (f'<div class="cabrow"><input id="cabWho{i}" class="cabwho" type="text" value="{h(c["who"])}" maxlength="24" aria-label="Who">'
+                 f'<input id="cabNum{i}" class="cabnum" type="text" inputmode="numeric" placeholder="Cabin #" maxlength="5" aria-label="Cabin number for {h(c["who"])}">'
+                 f'<span class="cabdeck" id="cabDeck{i}"></span></div>')
+    return (f'<div class="card"><div class="cabins">{rows}</div><p class="note">Type each cabin number once; it\'s saved on this phone, even after you close the app. '
+            f'Cabin numbers start with the deck number (6123 is on deck 6), and each cabin is marked on its deck below.</p></div>')
 
 
 def view_ship():
@@ -325,9 +323,7 @@ def view_ship():
         for sname, vs in d["venues"].items():
             sections += f'<div class="sect"><span>{h(sname) if sname else "·"}</span><span>{h(", ".join(vs))}</span></div>'
         tip = f'<p class="note">{h(d["tip"])}</p>' if d["tip"] else ""
-        ours = [c for c in CABINS if cabin_deck(c.get("cabin")) == d["n"]]
-        if ours:
-            tip += '<p class="ourcab">' + " · ".join(f'Cabin {h(str(c["cabin"]))}: {h(c["who"])}' for c in ours) + "</p>"
+        tip += f'<p class="ourcab" data-deckcab="{d["n"]}" hidden></p>'
         summary_v = ", ".join(v for vs in d["venues"].values() for v in vs)
         if len(summary_v) > 38:
             summary_v = summary_v[:36].rsplit(",", 1)[0] + "…"
