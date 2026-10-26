@@ -245,7 +245,7 @@ details.more > summary::after { content: " ↓"; }
 details.more[open] > summary::after { content: " ↑"; }
 
 /* ---------- ship ---------- */
-.plate { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; background: var(--card); }
+.plate { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; background: var(--card); }
 .plate div { padding: 9px 12px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); min-width: 0; display: grid; gap: 1px; }
 .plate dt { font-family: var(--f-data); font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
 .plate dd { margin: 0; font-family: var(--f-data); font-size: .84rem; letter-spacing: -.02em; }
@@ -264,11 +264,12 @@ details.more[open] > summary::after { content: " ↑"; }
 .deck-svg .ax { font-family: var(--f-data); font-size: 8px; fill: var(--ink-3); letter-spacing: .08em; }
 .decklist { display: grid; gap: 6px; }
 details.deck { border: 1px solid var(--rule); border-radius: 12px; background: var(--card); }
-details.deck > summary { cursor: pointer; list-style: none; display: flex; gap: 12px; align-items: baseline; padding: 10px 14px; }
+details.deck > summary { cursor: pointer; list-style: none; display: grid; grid-template-columns: 4.4em minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 14px; min-height: 48px; }
 details.deck > summary::-webkit-details-marker { display: none; }
-details.deck > summary b { font-family: var(--f-data); font-weight: 500; font-size: .86rem; color: var(--accent); min-width: 52px; }
-details.deck > summary span { font-weight: 650; }
-details.deck > summary em { margin-left: auto; font-style: normal; font-size: .78rem; color: var(--ink-3); text-align: right; }
+details.deck > summary b { font-family: var(--f-data); font-weight: 500; font-size: .86rem; color: var(--accent); white-space: nowrap; }
+details.deck .dk { display: grid; gap: 1px; min-width: 0; }
+details.deck .dk span { font-weight: 650; }
+details.deck .dk em { font-style: normal; font-size: .78rem; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 details.deck .body { padding: 0 14px 12px; display: grid; gap: 8px; font-size: .92rem; }
 details.deck .sect { display: grid; grid-template-columns: 44px 1fr; gap: 8px; }
 details.deck .sect > span { font-family: var(--f-data); font-size: .62rem; text-transform: uppercase; color: var(--ink-3); padding-top: 3px; }
@@ -307,6 +308,8 @@ details.deck.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accen
 .size text.a { font-family: var(--f-data); font-size: 8.5px; fill: var(--ink-3); }
 
 /* ---------- ports ---------- */
+.portnav .seg { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; overflow: visible; padding-bottom: 0; }
+.portnav .pill { flex-direction: column; justify-content: center; gap: 3px; padding: 6px 2px; border-radius: 12px; font-size: .78rem; white-space: nowrap; min-height: 46px; }
 .portnav { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--header-h)); z-index: 15; background: var(--paper); padding: 10px 0 8px; margin-bottom: 4px; }
 .porthead { border-radius: var(--r); padding: 20px 18px; background: color-mix(in srgb, var(--pc) 13%, var(--card)); border: 1px solid color-mix(in srgb, var(--pc) 35%, var(--rule)); display: grid; gap: 8px; }
 .porthead .coords { font-family: var(--f-data); font-size: .7rem; letter-spacing: .05em; color: var(--pc); }
@@ -328,7 +331,7 @@ details.deck.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accen
 .track .cut { position: absolute; top: 0; bottom: 0; border-left: 2px dashed var(--crit); }
 .hours { position: relative; height: 16px; font-family: var(--f-data); font-size: .58rem; color: var(--ink-3); }
 .hours span { position: absolute; transform: translateX(-50%); }
-.steps { display: grid; gap: 0; margin-top: 4px; }
+.steps { display: grid; gap: 0; margin: 4px 0 0; }
 .steps div { display: grid; grid-template-columns: 92px 1fr; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--rule); font-size: .9rem; }
 .steps div:last-child { border-bottom: 0; }
 .steps dt { font-family: var(--f-data); font-size: .7rem; color: var(--lc); padding-top: 3px; }
@@ -448,7 +451,7 @@ details.deck.on { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accen
 .checks label:last-child { border-bottom: 0; }
 .checks input { accent-color: var(--accent); width: 20px; height: 20px; margin: 1px 0 0; flex: 0 0 auto; }
 .checks label:has(input:checked) span { color: var(--ink-3); text-decoration: line-through; }
-.dl { display: grid; gap: 0; }
+.dl { display: grid; gap: 0; margin: 0; }
 .dl div { padding: 10px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
 .dl div:last-child { border-bottom: 0; }
 .dl dt { font-weight: 650; }
@@ -469,7 +472,7 @@ footer.colophon { margin-top: 48px; font-size: .78rem; color: var(--ink-3); disp
 .sky text.s-lab { fill: var(--s-lab); font-weight: 600; }
 .sky .s-moondisc { fill: #F3EED9; stroke: var(--card); stroke-width: 1; }
 .sky .s-moonshade { fill: #3A4458; }
-.dl dt .when { font-family: var(--f-data); font-size: .66rem; font-weight: 500; color: var(--ink-3); letter-spacing: .02em; margin-left: 6px; text-transform: uppercase; }
+.dl dt .when { display: block; font-family: var(--f-data); font-size: .66rem; font-weight: 500; color: var(--ink-3); letter-spacing: .02em; text-transform: uppercase; }
 
 /* ---------- vibes ---------- */
 .vibes { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 12px; }
@@ -535,3 +538,19 @@ details.game[open] { border-color: var(--accent); }
 .cabins input { font: inherit; font-size: .95rem; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--rule); background: var(--card); color: var(--ink); min-width: 0; }
 .cabins .cabnum { font-family: var(--f-data); text-align: center; }
 .cabdeck { font-family: var(--f-data); font-size: .78rem; color: var(--accent); }
+
+/* ---------- phone widths (the main way this guide is read) ---------- */
+.chartnote { margin: 8px 0 0; font-family: var(--f-data); font-size: .66rem; line-height: 1.4; color: var(--ink-3); }
+@media (max-width: 480px) {
+  .plate { grid-template-columns: 1fr; }
+  .plate div { grid-template-columns: 8.2em minmax(0, 1fr); align-items: baseline; gap: 10px; border-right: 0; padding: 7px 12px; }
+  .flag { flex-direction: column; gap: 2px; }
+  .vibe .steps div, .steps div { grid-template-columns: 1fr; gap: 1px; }
+  .steps dt { padding-top: 0; }
+  .gauges div:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .map text { font-size: 11px; }
+  .map text.s { font-size: 9.5px; }
+  .map text.d { font-size: 8.5px; }
+  .chart text { font-size: 12px; }
+  .chart text.v { font-size: 10.5px; }
+}

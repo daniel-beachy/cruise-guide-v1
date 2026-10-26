@@ -44,7 +44,7 @@ VIBES = {
                     ("Late morning", "Lover's Beach drop-off", "Arrange the pickup time with the same boat. Swim only on the bay side."),
                     ("Midday", "Marina boardwalk and fish tacos", "Stay close to the tender dock.")]},
         {"name": "Snorkel & whales", "effort": "Active", "pitch": "Pelican Rock's fish, then humpbacks off the arch.",
-         "bring": ["Masks and snorkels", "Rash guard", "Dry bag"],
+         "bring": ["Masks and snorkels", "Sunscreen", "Dry bag"],
          "blocks": [("Early", "First tenders ashore", "Ship-tour guests board first, then everyone else."),
                     ("Morning", "Snorkel from Lover's Beach toward Pelican Rock", "Water taxi past the arch; bay side only."),
                     ("Late morning", "Small-boat whale watch", "Humpbacks breach off Land's End in December.")],

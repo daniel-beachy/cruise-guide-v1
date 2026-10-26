@@ -165,6 +165,7 @@
   }
 
   /* ---------------- header status ---------------- */
+  var SHORT = { "Puerto Vallarta": "Vallarta", "Cabo San Lucas": "Cabo" };
   function status() {
     var t = now(), el = $("#status"), c2 = $("#countdown2");
     if (t < START) {
@@ -173,7 +174,7 @@
       if (c2) c2.textContent = days + " days until you sail";
     } else if (t <= END) {
       var st = stateAt(t), dayN = Math.floor((t - 8 * HR - Date.parse("2026-12-26T00:00:00Z")) / DAY) + 1;
-      el.textContent = "Day " + dayN + " · " + (st.mode === "sea" ? "At sea → " + names[st.leg.k][1] : st.place);
+      el.textContent = "Day " + dayN + " · " + (st.mode === "sea" ? "At sea" : (SHORT[st.place] || st.place));
       if (c2) c2.textContent = "You're on the ship";
     } else { el.textContent = "Welcome home"; if (c2) c2.textContent = ""; }
   }
@@ -399,7 +400,7 @@
   (function () {
     var boxes = $$("[data-pack]");
     if (!boxes.length) return;
-    var done = store.get("packed", {});
+    var done = store.get("packed2", {});
     function prog() {
       var c = boxes.filter(function (b) { return b.checked; }).length;
       $("#packCount").textContent = c + " of " + boxes.length + " packed";
@@ -407,11 +408,11 @@
     }
     boxes.forEach(function (b) {
       b.checked = !!done[b.dataset.pack];
-      b.addEventListener("change", function () { done[b.dataset.pack] = b.checked; store.set("packed", done); prog(); });
+      b.addEventListener("change", function () { done[b.dataset.pack] = b.checked; store.set("packed2", done); prog(); });
     });
     var reset = $("#packReset"), conf = $("#packConfirm"), tmr = null;
     reset.addEventListener("click", function () { conf.hidden = false; clearTimeout(tmr); tmr = setTimeout(function () { conf.hidden = true; }, 5000); });
-    conf.addEventListener("click", function () { boxes.forEach(function (b) { b.checked = false; }); done = {}; store.set("packed", done); conf.hidden = true; prog(); });
+    conf.addEventListener("click", function () { boxes.forEach(function (b) { b.checked = false; }); done = {}; store.set("packed2", done); conf.hidden = true; prog(); });
     prog();
   })();
 

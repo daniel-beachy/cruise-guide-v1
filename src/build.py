@@ -250,7 +250,7 @@ def night_sky():
 
 def view_trip():
     k = lambda v, l, n="": f"<div class=\"kpi\"><b>{v}</b><span>{l}</span>{f'<small>{n}</small>' if n else ''}</div>"
-    hero = f'''<div class="hero"><span class="coords">32°43′N 117°10′W → 20°39′N 105°15′W → 23°12′N 106°25′W → 22°53′N 109°55′W → home</span>
+    hero = f'''<div class="hero"><span class="coords">32°43′N 117°10′W → 20°39′N 105°15′W → 23°12′N 106°25′W → 22°53′N 109°55′W → home</span>
 <h1>Mexican Riviera Holiday</h1><p class="lede">Seven nights on ms Koningsdam: down the Baja coast, three Mexican ports, and New Year's Eve at sea.</p>
 <div class="kpis">{k(f"{total_nm:,} nm", "total distance", f"≈ {round(total_nm * NM_TO_MI):,} statute miles")}{k("7", "nights", "Dec 26 – Jan 2")}{k("3", "time zones", "UTC−8, −7 and −6")}{k("2×", "Tropic of Cancer", "crossed Dec 28 and Dec 31")}</div></div>'''
 
@@ -314,7 +314,7 @@ def cabins_card():
 
 def view_ship():
     plate = '<dl class="plate">' + "".join(f"<div><dt>{h(a)}</dt><dd>{h(b)}</dd></div>" for a, b in SHIP_SPECS) + "</dl>"
-    head = f'''<div class="hero"><span class="coords">IMO 9692557 · CALL SIGN PBGJ · PORT OF REGISTRY ROTTERDAM</span><h1>ms Koningsdam</h1><p class="lede">The first of Holland America's Pinnacle class, built in Venice in 2016 and christened by Queen Máxima.</p>{plate}</div>'''
+    head = f'''<div class="hero"><span class="coords">IMO 9692557 · CALL SIGN PBGJ · PORT OF REGISTRY ROTTERDAM</span><h1>ms Koningsdam</h1><p class="lede">The first of Holland America's Pinnacle class, built in Venice in 2016 and christened by Queen Máxima.</p>{plate}</div>'''
 
     decklist = '<div class="decklist" id="deckList">'
     for d in DECKS:
@@ -325,9 +325,10 @@ def view_ship():
         tip = f'<p class="note">{h(d["tip"])}</p>' if d["tip"] else ""
         tip += f'<p class="ourcab" data-deckcab="{d["n"]}" hidden></p>'
         summary_v = ", ".join(v for vs in d["venues"].values() for v in vs)
-        if len(summary_v) > 38:
+        if len(summary_v) > 36:
             summary_v = summary_v[:36].rsplit(",", 1)[0] + "…"
-        decklist += f'<details class="deck" id="deck{d["n"]}" data-deck="{d["n"]}"><summary><b>{name}</b><span>{h(d["name"] or "")}</span><em>{h(summary_v)}</em></summary><div class="body">{sections}{tip}</div></details>'
+        dname = f'<span>{h(d["name"])}</span>' if d["name"] else ""
+        decklist += f'<details class="deck" id="deck{d["n"]}" data-deck="{d["n"]}"><summary><b>{name}</b><span class="dk">{dname}<em>{h(summary_v)}</em></span></summary><div class="body">{sections}{tip}</div></details>'
     decklist += "</div>"
     deck = f'''<figure class="card"><div class="svgbox">{S.deck_svg(DECKS)}</div><figcaption>Not to scale. Venue positions (fore, mid, aft) follow Holland America's deck pages. Also aboard: {h(", ".join(ELSEWHERE))}; check the deck plan in the Navigator app for exact spots.</figcaption></figure>{decklist}'''
 
@@ -427,7 +428,7 @@ def mexico_page():
 
 
 def view_ports():
-    order = [("sd", "San Diego"), ("pv", "Puerto Vallarta"), ("mz", "Mazatlán"), ("cb", "Cabo"), ("mx", "Mexico")]
+    order = [("sd", "San Diego"), ("pv", "Vallarta"), ("mz", "Mazatlán"), ("cb", "Cabo"), ("mx", "Mexico")]
     nav = '<nav class="portnav" aria-label="Ports"><div class="seg">' + "".join(f'<a class="pill" href="#ports-{k}" data-port="{k}" style="--dot:var(--c-{k})"><span class="dot"></span>{h(n)}</a>' for k, n in order) + "</div></nav>"
     pages = "".join(port_page(k) for k in ("sd", "pv", "mz", "cb")) + mexico_page()
     return f'<section class="view" id="ports" aria-label="Ports">{nav}{pages}</section>'
@@ -470,7 +471,7 @@ def view_play():
 def view_pack():
     checks = '<div class="checks" id="packList">'
     for gi, (cat, items) in enumerate(PACKING):
-        checks += f"<fieldset><legend>{h(cat)}</legend>" + "".join(f'<label for="pk{gi}-{ii}"><input type="checkbox" id="pk{gi}-{ii}" data-pack="{gi}-{ii}"><span>{h(it)}</span></label>' for ii, it in enumerate(items)) + "</fieldset>"
+        checks += f"<fieldset><legend>{h(cat)}</legend>" + "".join(f'<label for="pk{gi}-{ii}"><input type="checkbox" id="pk{gi}-{ii}" data-pack="{h(it)}"><span>{h(it)}</span></label>' for ii, it in enumerate(items)) + "</fieldset>"
     checks += "</div>"
     prog = '<div class="card jsonly" style="display:grid;gap:8px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><b id="packCount">0 of 0 packed</b><span class="small muted" id="countdown2"></span></div><div class="progress"><i id="packBar"></i></div><div class="btnrow"><button class="btn" id="packReset" type="button">Clear all ticks</button><button class="btn" id="packConfirm" type="button" hidden>Yes, clear them</button></div></div>'
     dls = '<div class="card">' + kv_list("dl", DOWNLOADS) + "</div>"
@@ -482,8 +483,8 @@ def view_pack():
 <p class="note">Packing ticks and wildlife sightings are saved on each phone separately. Android: open the link in Chrome and choose Install app or Add to Home screen.</p></div>'''
     colophon = '''<footer class="colophon"><span class="eyebrow">About this guide</span><p>Compiled October 2026 from Holland America, Fincantieri, the U.S. State Department, INEGI and IIEG, the San Diego Zoo Wildlife Alliance, the Congressional Research Service and port and tourism sources. Prices, hours and advisories change: recheck the week you sail. Distances, fuel and timing figures marked as estimates are calculations, not official numbers.</p><p>Coastlines from OpenStreetMap-derived data (© OpenStreetMap contributors, ODbL) and Natural Earth via geo-maps. Wildlife photos from Wikimedia Commons; each photo's author and license are on its card.</p></footer>'''
     return f'''<section class="view" id="pack" aria-label="Pack">
-<div class="hero"><span class="coords">PACKING · OFFLINE KIT</span><h1>Before you go</h1><p class="lede">Tick things off as they go in the bag. Then download the offline kit while you still have a good connection at home.</p></div>
-{sec("Checklist", "Packing list", prog + checks)}
+<div class="hero"><span class="coords">ESSENTIALS · OFFLINE KIT</span><h1>Before you go</h1><p class="lede">Tick off the essentials as they go in the bag. Then download the offline kit while you still have a good connection at home.</p></div>
+{sec("Checklist", "Essentials", prog + checks)}
 {sec("Offline kit", "Download before you go", dls)}
 {sec("This guide", "How to carry it", how)}
 {colophon}
@@ -517,7 +518,7 @@ def body_html(pwa=False):
     js = open(os.path.join(HERE, "app.js")).read()
     tabs = [("trip", "Trip"), ("ship", "Ship"), ("ports", "Ports"), ("play", "Play"), ("pack", "Pack")]
     tabbar = '<nav class="tabbar" aria-label="Sections"><div class="wrap">' + "".join(f'<a href="#{k}" data-tab="{k}">{icon(k)}<span>{n}</span></a>' for k, n in tabs) + "</div></nav>"
-    top = '<header class="topbar"><div class="wrap"><div class="brand"><b>Koningsdam</b><span>Mexican Riviera · Dec 26 – Jan 2</span></div><span class="status" id="status">7 nights · 3 ports</span></div></header>'
+    top = '<header class="topbar"><div class="wrap"><div class="brand"><b>Koningsdam</b><span>Dec 26 – Jan 2</span></div><span class="status" id="status">7 nights · 3 ports</span></div></header>'
     main = '<main class="wrap">' + view_trip() + view_ship() + view_ports() + view_play() + view_pack() + "</main>"
     data = json.dumps(DATA, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     sw = "<script>if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>" if pwa else ""
@@ -535,7 +536,7 @@ RESET = ':root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);paddi
 def full_doc(body, pwa=False):
     extra = ""
     if pwa:
-        extra = '<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Koningsdam"><meta name="theme-color" content="#F1F5F5">'
+        extra = '<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Koningsdam"><meta name="theme-color" content="#F1F5F5">'
     return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">{extra}<style>{RESET}</style></head><body>{body}</body></html>'
 
 

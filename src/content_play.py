@@ -88,13 +88,13 @@ QUIZ = [
 ]
 
 PACKING = [
-    ("Documents", ["Passport (needed to fly home if you ever miss the ship in Mexico)", "Driver's license or other photo ID", "Holland America boarding pass and luggage tags", "Flight or travel bookings", "Offline copies of everything (screenshots in a photo album)"]),
-    ("Money", ["Credit card with no foreign transaction fees", "Small-bill pesos from a bank ATM", "$1 and $5 bills for U.S. tips", "Card on file with Holland America for onboard charges"]),
-    ("Snorkel kit", ["Mask and snorkel", "Anti-fog", "Fins (optional; tours usually supply them)", "Rash guard", "Mineral reef-safe sunscreen (zinc oxide)", "Water shoes", "Dry bag", "Waterproof phone pouch"]),
-    ("Clothes", ["Layers for cool San Diego mornings (40s–60s °F)", "Two swimsuits (one dries while you wear the other)", "Sun hat and polarized sunglasses", "Something dressy for New Year's Eve", "Trail or walking shoes for El Faro and the jungle trails", "Light rain shell"]),
-    ("Gear & tech", ["Binoculars (brace higher-power ones on the rail)", "Multi-USB charger without surge protection", "Power bank", "Lanyard for the cruise card", "Charging cables", "Headphones"]),
-    ("Health", ["Seasickness remedy (the Baja legs can roll)", "Anti-diarrhea medicine", "Aloe / after-sun", "Prescriptions in original bottles", "Small first-aid kit"]),
-    ("Games & fun", ["A couple of compact card or party games", "Two decks of cards", "A 500-piece puzzle", "12 grapes for midnight (buy in Cabo)"]),
+    ("Documents", ["Passport", "Driver's license or other photo ID", "Holland America boarding pass and luggage tags", "Flight or travel bookings", "Offline copies of everything"]),
+    ("Money", ["Credit card with no foreign transaction fees", "Small-bill pesos from a bank ATM"]),
+    ("Snorkel kit", ["Mask, snorkel and anti-fog", "Sunscreen", "Water shoes", "Dry bag and waterproof phone pouch"]),
+    ("Clothes", ["Multiple swimsuits", "Sun hat and polarized sunglasses", "Something dressy for the dining room and New Year's Eve", "Trail or walking shoes for El Faro and the jungle trails", "Light rain shell"]),
+    ("Gear & tech", ["Binoculars", "Power bank", "Charging cables", "Headphones"]),
+    ("Health", ["Small first-aid kit and medications", "After-sun / aloe"]),
+    ("Games & fun", ["A couple of compact card or party games", "Football or volleyball and a small pump"]),
 ]
 
 DOWNLOADS = [

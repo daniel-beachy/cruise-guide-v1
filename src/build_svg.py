@@ -122,8 +122,8 @@ def pv_svg(m):
     for k, lab, dx, dy, an, cls in labels:
         x, y = p[k]
         out.append(f'<circle class="{cls}" cx="{x}" cy="{y}" r="3.4"/><text class="halo" x="{x + dx}" y="{y + dy}" text-anchor="{an}">{lab}</text>')
-    out.append('<text class="w halo" x="190" y="165" text-anchor="middle" style="font-size:15px">Bahía de Banderas</text>')
-    out.append('<text class="s halo" x="300" y="40" text-anchor="middle" style="fill:var(--ink-3)">NAYARIT</text><text class="s halo" x="350" y="240" text-anchor="middle" style="fill:var(--ink-3)">JALISCO</text>')
+    out.append('<text class="w halo" x="165" y="190" text-anchor="middle" style="font-size:15px">Bahía de Banderas</text>')
+    out.append('<text class="s halo" x="300" y="40" text-anchor="middle" style="fill:var(--ink-3)">NAYARIT</text><text class="s halo" x="372" y="290" text-anchor="middle" style="fill:var(--ink-3)">JALISCO</text>')
     out.append(f'<g transform="translate(14,{H - 52})"><rect width="150" height="44" rx="5" fill="var(--card)" opacity=".92"/>'
                '<line x1="8" y1="12" x2="26" y2="12" class="route back"/><text class="s" x="32" y="15">Ship approach</text>'
                '<line x1="8" y1="24" x2="26" y2="24" class="walk"/><text class="s" x="32" y="27">Jungle trail</text>'
@@ -324,7 +324,7 @@ def size_svg():
 
 def tonnage_svg():
     rows = [("Titanic (1912)", 46328, "GRT"), ("Koningsdam", 99863, "GT"), ("Icon class", 248663, "GT")]
-    x0, scale = 112, 240 / 248663
+    x0, scale = 112, 205 / 248663
     H = 22 + 28 * 3 + 4
     o = [f'<svg class="size" viewBox="0 0 400 {H}" role="img" aria-label="Enclosed volume: Titanic 46,328 gross register tons, Koningsdam 99,863 gross tons, Icon class 248,663 gross tons.">']
     for i, (name, v, unit) in enumerate(rows):
@@ -375,9 +375,10 @@ def hbar_svg(rows, highlight, label, unit_fmt, max_v=None, note=None, labw=130):
     W = 400
     x0 = labw
     rh = 24
-    H = 10 + rh * len(rows) + (16 if note else 4)
+    H = 10 + rh * len(rows) + 4
     mx = max_v or max(r[1] for r in rows)
-    scale = (W - x0 - 64) / mx
+    vlen = max(len(unit_fmt(r[1]) + (f"  ·  {r[2]}" if len(r) > 2 else "")) for r in rows)
+    scale = (W - x0 - 10 - 6.4 * vlen) / mx
     o = [f'<svg class="chart" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(label)}">']
     for i, r in enumerate(rows):
         name, v = r[0], r[1]
@@ -388,9 +389,9 @@ def hbar_svg(rows, highlight, label, unit_fmt, max_v=None, note=None, labw=130):
         o.append(f'<rect class="b{hi}" x="{x0}" y="{yy + 2}" width="{fmt(max(1.5, v * scale))}" height="15" rx="3"/>')
         txt = unit_fmt(v) + (f"  ·  {sub}" if sub else "")
         o.append(f'<text class="v" x="{fmt(x0 + v * scale + 5)}" y="{yy + 13}">{esc(txt)}</text>')
-    if note:
-        o.append(f'<text class="a" x="{x0}" y="{H - 4}">{esc(note)}</text>')
     o.append("</svg>")
+    if note:
+        o.append(f'<p class="chartnote">{esc(note)}</p>')
     return "".join(o)
 
 
