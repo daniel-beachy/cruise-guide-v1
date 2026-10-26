@@ -186,4 +186,4 @@ WIFI = [
 SITE_URL = "daniel-beachy.github.io/cruise-guide-v1"
 
 # Default labels for the cabin card. Numbers are typed in on each phone and saved locally.
-CABINS = [{"who": "Daniel & Taylor"}, {"who": "Parents"}, {"who": "Tyson & Malea"}]
+CABINS = [{"who": "Dan & Tay"}, {"who": "Brent & Kirsten"}, {"who": "Tyson & Malea"}]

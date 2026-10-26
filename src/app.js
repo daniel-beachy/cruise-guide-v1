@@ -344,7 +344,8 @@
     }
     nums.forEach(function (inp, i) {
       var w = $("#cabWho" + i);
-      if (saved[i]) { if (saved[i][0]) w.value = saved[i][0]; inp.value = saved[i][1] || ""; }
+      var OLD = { "Daniel & Taylor": 1, "Parents": 1 };  // earlier defaults, replaced by the new ones
+      if (saved[i]) { if (saved[i][0] && !OLD[saved[i][0]]) w.value = saved[i][0]; inp.value = saved[i][1] || ""; }
       inp.addEventListener("input", render); w.addEventListener("input", render);
     });
     render();
